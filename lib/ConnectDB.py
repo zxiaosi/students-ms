@@ -3,13 +3,12 @@
 # @File : ConnectDB.py
 # @Version : 1.0
 # @Description : 连接数据库
-
 import pymysql
 
-from readconfig import ReadConfig
+from lib.readconfig import ReadConfig
 
 
-class ConnMysql:
+class ConnMysql(object):
     def __init__(self):
         self.data = ReadConfig()
 
@@ -30,3 +29,8 @@ class ConnMysql:
         self.cursor = self.conn.cursor()
 
         print('数据库连接成功！')
+
+
+if __name__ == '__main__':
+    conn = ConnMysql()
+    conn.conn_mysql()

@@ -2,10 +2,10 @@
 # @Author : 小四先生
 # @File : InitializeDB.py
 # @Version : 1.0
-# @Description : 初始化mysql(创建、插入数据)
+# @Description : 初始化mysql(创建、插入默认数据)
 import pymysql.cursors
 
-from ConnectDB import ConnMysql
+from lib.ConnectDB import ConnMysql
 
 
 class InitMysql(ConnMysql):
@@ -30,7 +30,7 @@ class InitMysql(ConnMysql):
         sql1 = """
             create table t_student(
                 sno int primary key comment '学号',
-                sname char(45) unique not null comment '姓名',
+                sname char(45) not null comment '姓名',
                 sage char(45) comment '年龄',
                 sclass char(45) comment '班级'
             )
@@ -78,6 +78,7 @@ class InitMysql(ConnMysql):
             self.conn.rollback()
         finally:
             # 关闭连接释放资源
+            self.cursor.close()
             self.conn.close()
 
 
