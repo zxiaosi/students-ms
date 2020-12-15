@@ -6,6 +6,8 @@
 import tkinter
 import tkinter.messagebox
 
+from db.HandleDB import HandleMysql
+
 
 class BaseView(object):
     def __init__(self):
@@ -17,6 +19,26 @@ class BaseView(object):
         self.root.resizable(width=False, height=False)
         # 窗口标题
         self.root.title('学生信息管理系统')
+
+    def select_no(self, sno):
+        # 查询学号是否重复
+        result = HandleMysql().select(sno)
+        if result == 0:
+            self.warning('学号不存在！')
+
+    def none_value(self, list):
+        flag = True
+        if list[0] == '':
+            self.warning('学号不能为空！')
+        elif list[1] == '':
+            self.warning('名字不能为空！')
+        elif list[2] == '':
+            self.warning('年龄不能为空！')
+        elif list[3] == '':
+            self.warning('班级不能为空！')
+        else:
+            flag = False
+        return flag
 
     # 提示弹窗
     def success(self, msg='成功！'):
@@ -33,8 +55,11 @@ class BaseView(object):
         # 弹出对话框
         tkinter.messagebox.showwarning('警告', msg, parent=self.root)
 
-# if __name__ == '__main__':
-#     base = Base()
-#     base.success()
-#     base.fail()
-#     base.warning()
+
+if __name__ == '__main__':
+    base = BaseView()
+    # base.success()
+    # base.fail()
+    # base.warning()
+
+    base.select_no(1006)

@@ -36,11 +36,11 @@ class Index(BaseView):
         self.entry_pwd['show'] = '*'  # 隐藏显示
         self.entry_pwd.grid(row=2, column=1, sticky=tkinter.W)
 
-        # 登录和注册按钮
+        # 登录和退出按钮
         self.frame_btn = tkinter.Frame(self.root)
         self.btn_login = tkinter.Button(self.frame_btn, text='登录', width=10, command=self.login)
         self.btn_login.grid(row=0, column=0, padx=40)
-        self.btn_regist = tkinter.Button(self.frame_btn, text='退出', width=10, command=self.root.quit)
+        self.btn_regist = tkinter.Button(self.frame_btn, text='退出', width=10, command=self.root.destroy)
         self.btn_regist.grid(row=0, column=1, padx=40)
         self.frame_btn.grid(row=3, columnspan=2, pady=40)
 
@@ -67,6 +67,7 @@ class Index(BaseView):
                 Admin().admin_view()
             else:
                 self.fail('账号或密码错误！')
+
         self.entry_pwd.delete(0, len_pwd)
 
 

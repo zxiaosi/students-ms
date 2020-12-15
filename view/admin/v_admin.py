@@ -52,7 +52,7 @@ class Admin(BaseView):
 
         # 退出系统按钮
         self.button_add = tkinter.Button(self.root, text='退出系统', width=24, height=2,
-                                         font=('黑体', 12), command=self.root.quit)
+                                         font=('黑体', 12), command=self.root.destroy)
         self.button_add.grid(row=6, pady=10)
 
         self.root.mainloop()  # 界面运行

@@ -69,26 +69,18 @@ class AppendAdmin(BaseView):
         list.append(sclass)
         return list
 
+    # 添加
     def append(self):
         list = self.data()
-        if list[0] == '':
-            self.warning('学号不能为空！')
-        elif list[1] == '':
-            self.warning('名字不能为空！')
-        elif list[2] == '':
-            self.warning('年龄不能为空！')
-        elif list[3] == '':
-            self.warning('班级不能为空！')
-        else:
-            # 获取数据库中管理员账户与密码
-            handle = HandleMysql()
-            result = handle.select(list[0])
-            if result == 1:
-                self.warning('学号已存在！')
-            else:
-                self.success('添加成功！')
-                handle.add_student(*list)
+        flag = self.none_value(list)
+        if not flag:
+            # 调用父类的方法
+            self.select_no(list[0])
 
+            self.success('添加成功！')
+            HandleMysql().add_student(*list)
+
+    # 重置
     def reset(self):
         list = self.data()
 
