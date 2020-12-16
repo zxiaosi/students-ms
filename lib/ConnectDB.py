@@ -20,15 +20,19 @@ class ConnMysql(object):
         db = self.data.get_db("db")
         charset = self.data.get_db("charset")
 
-        self.conn = pymysql.connect(host=host,
-                                    port=int(port),
-                                    user=user,
-                                    password=password,
-                                    db=db,
-                                    charset=charset)
-        self.cursor = self.conn.cursor()
-
-        print('数据库连接成功！')
+        try:
+            self.conn = pymysql.connect(host=host,
+                                        port=int(port),
+                                        user=user,
+                                        password=password,
+                                        db=db,
+                                        charset=charset)
+            self.cursor = self.conn.cursor()
+            print('数据库连接成功！')
+            return True
+        except:
+            print('数据库连接失败！')
+            return False
 
 
 if __name__ == '__main__':

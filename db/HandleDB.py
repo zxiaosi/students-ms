@@ -130,27 +130,6 @@ class HandleMysql(ConnMysql):
             # 关闭连接释放资源
             self.conn.close()
 
-    # 增加管理员信息
-    def add_user(self):
-        name = input('请输入管理员账户：')
-        password = input('请输入管理员密码：')
-        try:
-            # 获取游标对象
-            with self.conn.cursor() as cursor:
-                # 执行SQL得到结果
-                result = cursor.execute("insert into t_user values (user=%s, password=%s)", (name, password))
-                if result:
-                    print('添加成功')
-                # 操作成功执行提交
-                self.conn.commit()
-        except pymysql.MySQLError as error:
-            print(error)
-            # 操作失败执行回滚
-            self.conn.rollback()
-        finally:
-            # 关闭连接释放资源
-            self.conn.close()
-
     # 查找管理员信息
     def select_user(self):
         try:

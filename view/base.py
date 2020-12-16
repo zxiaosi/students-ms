@@ -3,6 +3,7 @@
 # @File : base.py
 # @Version : 1.0
 # @Description : 定义模板父类
+import os
 import tkinter
 import tkinter.messagebox
 
@@ -62,4 +63,4 @@ if __name__ == '__main__':
     # base.fail()
     # base.warning()
 
-    base.select_no(1006)
+    # base.select_no(1006)
