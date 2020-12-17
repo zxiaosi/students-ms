@@ -8,7 +8,7 @@ import configparser
 
 
 class ReadConfig:
-    """定义一个读取配置文件的类"""
+    """ 读取配置文件的类 """
 
     def __init__(self, filepath=None):
         if filepath:
@@ -23,5 +23,10 @@ class ReadConfig:
 
     # 获取section名为Mysql-Database所对应的键值对
     def get_db(self, param):
+        """
+        :param param: config.ini中名为Mysql-Database所对应的键
+        :type param: str
+        :return: config.ini中名为Mysql-Database所对应的值
+        """
         value = self.cf.get("Mysql-Database", param)
         return value

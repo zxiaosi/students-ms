@@ -1,7 +1,7 @@
 # @Time : 2020/12/14 17:44 
 # @Author : 小四先生
 # @File : admin_show.py
-# @Version : 1.0
+# @Version : 3.0
 # @Description : 查询界面
 import tkinter
 import tkinter.messagebox
@@ -11,39 +11,43 @@ from db.HandleDB import HandleMysql
 
 
 class ShowAdmin(BaseView):
+    """ 查询学生信息的类 """
+
     def __init__(self):
         super().__init__()
 
+    # 查询界面
     def show_view(self):
+        """ 查询界面 """
         # 标题
-        self.label_title = tkinter.Label(self.root, text='请输入要查询学生的学号: ', font=('黑体', 20))
-        self.label_title.grid(row=0, columnspan=2, padx=140, pady=40)
+        self.label_title(text='请输入要查询学生的学号: ', padx=110, pady=40)
 
         # 学号
-        self.entry_sno = tkinter.Entry(self.root, width=36)
-        self.entry_sno.grid(row=1, column=1, sticky=tkinter.W)
+        self.entry_sno = self.entry(name='sno', row=1, column=1, width=36)
 
         # 查找和重置按钮
-        self.frame_btn = tkinter.Frame(self.root)
-        self.btn_append = tkinter.Button(self.frame_btn, text='查找', width=10, command=self.select)
-        self.btn_append.grid(row=0, column=0, padx=40)
-        self.btn_reset = tkinter.Button(self.frame_btn, text='重置', width=10, command=self.reset)
-        self.btn_reset.grid(row=0, column=1, padx=40)
-        self.frame_btn.grid(row=2, columnspan=2, pady=20)
+        self.frame_button(name1='select', name2='reset', text1='查找', text2='重置',
+                          btn1_command=self.select, btn2_command=self.reset,
+                          row=2, pady=20)
 
         # 输出框
         self.listbox = tkinter.Listbox(self.root, width=34, selectmode=tkinter.EXTENDED)
         self.listbox.grid(row=3, columnspan=2)
 
         # 清空按钮
-        self.button_empty = tkinter.Button(self.root, text='清    空', width=30, height=2,
-                                           font=('黑体', 12), command=self.empty)
-        self.button_empty.grid(row=4, column=1, pady=20, sticky=tkinter.W)
+        self.button(name='empty', text='清    空', width=30, height=2,
+                    command=self.listbox_empty, row=4, column=1, sticky=tkinter.W, pady=20)
 
         self.root.mainloop()  # 界面运行
 
     # 向listbox中添加文字
     def list_box(self, n):
+        """
+        :param n: 数字
+        :type n: int
+        :return: 返回数字对应的字符串
+        """
+
         if n == 0:
             return '学 号'
         elif n == 1:
@@ -53,8 +57,10 @@ class ShowAdmin(BaseView):
         elif n == 3:
             return '班 级'
 
-    # 添加数据
+    # 添加按钮
     def select(self):
+        """ 检测、查询学生信息 """
+
         # 获取输入框内的值
         sno = self.entry_sno.get()
         if sno == '':
@@ -68,18 +74,23 @@ class ShowAdmin(BaseView):
                 self.listbox.insert(n, f'{self.list_box(n)}: {result[n]}')
                 self.listbox.select_set(n)
 
-    # 重置
+    # 重置按钮
     def reset(self):
+        """ 清空输入框内的数据 """
+
         # 获取输入框内的值
         sno = self.entry_sno.get()
 
         len_sno = len(sno)
         self.entry_sno.delete(0, len_sno)
 
-    def empty(self):
+    # 清空
+    def listbox_empty(self):
+        """ 清空列表框内的数据 """
+
         self.listbox.delete(0, tkinter.END)
 
 
-if __name__ == '__main__':
-    show = ShowAdmin()
-    show.show_view()
+# if __name__ == '__main__':
+#     show = ShowAdmin()
+#     show.show_view()

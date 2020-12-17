@@ -1,7 +1,7 @@
 # @Time : 2020/12/14 17:48 
 # @Author : 小四先生
 # @File : admin_modify.py
-# @Version : 1.0
+# @Version : 3.0
 # @Description : 修改界面
 import tkinter
 import tkinter.messagebox
@@ -11,63 +11,51 @@ from view.base import BaseView
 
 
 class ModifyAdmin(BaseView):
+    """ 修改学生信息的类 """
+
     def __init__(self):
         super().__init__()
 
+    # 修改界面
     def modify_view(self):
+        """ 修改界面 """
         # 标题
-        self.label_title = tkinter.Label(self.root, text='请输入要修改学生的学号: ', font=('黑体', 20))
-        self.label_title.grid(row=0, columnspan=4, padx=140, pady=40)
+        self.label_title(text='请输入要修改学生的学号: ', columnspan=4, padx=120, pady=40)
 
         # 输入框
-        self.ey_sno = tkinter.Entry(self.root, width=26)
-        self.ey_sno.grid(row=1, column=1, sticky=tkinter.E)
+        self.ey_sno = self.entry(name='ey_sno', row=1, column=1, width=26, sticky=tkinter.E)
 
         # 确定
-        self.btn_sure = tkinter.Button(self.root, text='确定', width=8, command=self.sure)
-        self.btn_sure.grid(row=1, column=2, sticky=tkinter.W)
+        self.button(name='sure', text='确定', width=8, command=self.sure,
+                    row=1, column=2, sticky=tkinter.W, pady=5)
 
-        self.frame_label = tkinter.Frame(self.root)
         # 学号
-        self.label_sno = tkinter.Label(self.frame_label, text='学 号 :', font=('宋体', 14))
-        self.label_sno.grid(row=0, column=1, sticky=tkinter.W, pady=20)
-        self.entry_sno = tkinter.Entry(self.frame_label)
-        self.entry_sno.grid(row=1, column=1, sticky=tkinter.W)
+        self.label(name='sno', text='学 号 :', row=2, column=1, sticky=tkinter.W, padx=60, pady=20)
+        self.entry_sno = self.entry(name='sno', row=3, column=1, padx=60)
 
         # 姓名
-        self.label_sname = tkinter.Label(self.frame_label, text='姓 名 :', font=('宋体', 14))
-        self.label_sname.grid(row=0, column=3, sticky=tkinter.W, pady=20)
-        self.entry_sname = tkinter.Entry(self.frame_label)
-        self.entry_sname.grid(row=1, column=3, sticky=tkinter.W)
-
-        # 空白
-        self.label_no = tkinter.Label(self.frame_label, width=16)
-        self.label_no.grid(row=0, column=2)
+        self.label(name='sname', text='姓 名:', row=2, column=2, sticky=tkinter.W, pady=20)
+        self.entry_sname = self.entry(name='sname', row=3, column=2)
 
         # 年龄
-        self.label_sage = tkinter.Label(self.frame_label, text='年龄 :', font=('宋体', 14))
-        self.label_sage.grid(row=2, column=1, sticky=tkinter.W, pady=20)
-        self.entry_sage = tkinter.Entry(self.frame_label)
-        self.entry_sage.grid(row=3, column=1, sticky=tkinter.W)
+        self.label(name='sage', text='年 龄 :', row=4, column=1, sticky=tkinter.W, padx=60, pady=20)
+        self.entry_sage = self.entry(name='sage', row=5, column=1, padx=60)
 
         # 班级
-        self.label_sclass = tkinter.Label(self.frame_label, text='班 级 :', font=('宋体', 14))
-        self.label_sclass.grid(row=2, column=3, sticky=tkinter.W, pady=20)
-        self.entry_sclass = tkinter.Entry(self.frame_label)
-        self.entry_sclass.grid(row=3, column=3, sticky=tkinter.W)
+        self.label(name='sclass', text='姓 名:', row=4, column=2, sticky=tkinter.W, pady=20)
+        self.entry_sclass = self.entry(name='sclass', row=5, column=2)
 
-        self.frame_label.grid(row=2, columnspan=4)
-
-        self.frame_btn = tkinter.Frame(self.root)
-        self.btn_append = tkinter.Button(self.frame_btn, text='提交', width=20, height=2, command=self.submit)
-        self.btn_append.grid(row=0, column=1, padx=40)
-        self.btn_reset = tkinter.Button(self.frame_btn, text='重置', width=20, height=2, command=self.reset)
-        self.btn_reset.grid(row=0, column=2, padx=40)
-        self.frame_btn.grid(row=3, columnspan=4, pady=40)
+        # 提交和重置按钮
+        self.frame_button(name1='submit', name2='reset', text1='提交', text2='重置',
+                          width=20, height=2, btn1_command=self.submit, btn2_command=self.reset,
+                          row=10, column=1, columnspan=4, pady=40)
 
         self.root.mainloop()  # 界面运行
 
+    # 确定按钮
     def sure(self):
+        """ 查询学生信息 """
+
         # 获取输入框内的值
         sno = self.ey_sno.get()
         print(sno)
@@ -81,7 +69,10 @@ class ModifyAdmin(BaseView):
             self.entry_sage.insert(0, f'{result[2]}')
             self.entry_sclass.insert(0, f'{result[3]}')
 
+    # 提交按钮
     def submit(self):
+        """ 检测、修改学生信息 """
+
         osno = self.ey_sno.get()
         nsno = self.entry_sno.get()
         sname = self.entry_sname.get()
@@ -105,23 +96,17 @@ class ModifyAdmin(BaseView):
                 HandleMysql().update_student(nsno, sname, sage, sclass, osno)
                 self.success('修改成功！')
 
-
-    # 重置
+    # 重置按钮
     def reset(self):
-        # 获取输入框内的值
-        len_no = len(self.ey_sno.get())
-        len_sno = len(self.entry_sno.get())
-        len_sname = len(self.entry_sname.get())
-        len_sage = len(self.entry_sage.get())
-        len_sclass = len(self.entry_sclass.get())
+        """ 清空输入框内的数据 """
 
-        self.ey_sno.delete(0, len_no)
-        self.entry_sno.delete(0, len_sno)
-        self.entry_sname.delete(0, len_sname)
-        self.entry_sage.delete(0, len_sage)
-        self.entry_sclass.delete(0, len_sclass)
+        self.ey_sno.delete(0, len(self.ey_sno.get()))
+        self.entry_sno.delete(0, len(self.entry_sno.get()))
+        self.entry_sname.delete(0, len(self.entry_sname.get()))
+        self.entry_sage.delete(0, len(self.entry_sage.get()))
+        self.entry_sclass.delete(0, len(self.entry_sclass.get()))
 
 
-if __name__ == '__main__':
-    modify = ModifyAdmin()
-    modify.modify_view()
+# if __name__ == '__main__':
+#     modify = ModifyAdmin()
+#     modify.modify_view()

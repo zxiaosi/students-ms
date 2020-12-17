@@ -9,10 +9,16 @@ from lib.readconfig import ReadConfig
 
 
 class ConnMysql(object):
+    """ 连接数据库的类 """
+
     def __init__(self):
         self.data = ReadConfig()
 
+    # 数据库连接
     def conn_mysql(self):
+        """
+        :return: True-连接数据库成功  False-连接数据库失败
+        """
         host = self.data.get_db("host")
         port = self.data.get_db("port")
         user = self.data.get_db("user")
@@ -34,7 +40,6 @@ class ConnMysql(object):
             print('数据库连接失败！')
             return False
 
-
-if __name__ == '__main__':
-    conn = ConnMysql()
-    conn.conn_mysql()
+# if __name__ == '__main__':
+#     conn = ConnMysql()
+#     conn.conn_mysql()
