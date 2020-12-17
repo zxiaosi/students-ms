@@ -6,6 +6,7 @@
 import os
 import time
 
+
 # 获当前时间的时间戳
 def get_second():
     """
@@ -122,7 +123,6 @@ def deal_with():
 
     print(result)
     return result
-
 
 # if __name__ == '__main__':
 #     deal_with()
