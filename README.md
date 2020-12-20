@@ -40,6 +40,8 @@ Python-Tk模块实现学生后台管理系统
 		|-- admin_showAll.py	# 所有学生界面
 	|-- index
 		|-- index.py			# 登录界面
+		|-- connect.py			# 连接数据库
+	|-- base.py					# 父类模板
 |-- log							# 日志文件夹
 |-- main.py						# 主程序
 ```
