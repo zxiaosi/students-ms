@@ -8,7 +8,7 @@ Python-Tk模块实现学生后台管理系统
 
 软件架构说明
 
-![学生信息管理系统](https://gitee.com/zxiaosi/img/raw/master/Python/学生信息管理系统.png)
+![](https://gitee.com/zxiaosi/image/raw/master/Project/Python/StudentMS/studentMS.png)
 
 ### 安装教程
 
